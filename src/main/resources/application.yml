@@ -1,6 +1,29 @@
+vaadin:
+    launch-browser: true
+
+logging:
+    level:
+        web: DEBUG
+
 spring:
     application:
         name:  test
-
-vaadin:
-    launch-browser: true
+    datasource:
+        url: jdbc:postgresql://localhost:5432/todolist
+        username: postgres
+        password: postgres
+        driver-class-name: org.postgresql.Driver
+    flyway:
+        enabled: true
+        url: jdbc:postgresql://localhost:5432/todolist
+        user: postgres
+        password: postgres
+        baseline-version: 0
+    jpa:
+        hibernate:
+            ddl-auto: none
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                format_sql: true
+                show_sql: true
