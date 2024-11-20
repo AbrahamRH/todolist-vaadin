@@ -1,6 +1,8 @@
 package com.todolist.test.persistance;
 
 import com.todolist.test.Entity.Task;
+import jakarta.validation.constraints.Size;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +18,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findAll();
 
     void deleteById(Long id);
+
+    Task findTaskByName(@Size(min = 1, max = 50) @Unique String name);
 }

@@ -50,4 +50,15 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getTasks() {
         return taskRepository.findAll();
     }
+
+    @Override
+    public Task updateTask(Task task) {
+        return taskRepository.save(task);
+    }
+
+    @Override
+    public Task findByName(String name){
+        return taskRepository.findTaskByName(name);
+    }
+
 }

@@ -9,4 +9,6 @@ public interface TaskService {
     void deleteTask(Long id);
     Task getTask(Long id);
     List<Task> getTasks();
+    Task updateTask(Task task);
+    Task findByName(String name);
 }
