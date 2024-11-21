@@ -12,8 +12,10 @@ public class MainView extends VerticalLayout {
     TasksView taskView;
 
     public MainView(TaskService taskService) {
-        this.taskForm = new TaskForm();
+        this.taskForm = new TaskForm(taskService);
         this.taskView = new TasksView(taskService);
+        taskForm.addTaskFormListener(event -> taskView.addTask(event.getTask()));
+
         HorizontalLayout content = new HorizontalLayout();
         content.add(taskForm);
         content.add(taskView);

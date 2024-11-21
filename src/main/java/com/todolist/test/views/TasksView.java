@@ -20,11 +20,9 @@ public class TasksView extends Div {
         add(cardList);
     }
 
-    public void updateTasks() {
+    private void updateTasks() {
         cards.removeAll();
-        taskService.getTasks().forEach(task -> {
-            cards.add(new TaskCard(task.getName(), task.getDescription(), task.isCompleted(), this::updateTaskStatus));
-        });
+        taskService.getTasks().forEach(task -> cards.add(new TaskCard(task.getName(), task.getDescription(), task.isCompleted(), this::updateTaskStatus)));
     }
 
     private void updateTaskStatus(String name, boolean completed) {
@@ -33,6 +31,10 @@ public class TasksView extends Div {
             taskToUpdate.setCompleted(completed);
             taskService.updateTask(taskToUpdate);
         }
+    }
+
+    public void addTask(Task task) {
+        cards.add(new TaskCard(task.getName(), task.getDescription(), task.isCompleted(), this::updateTaskStatus));
     }
 
 }
