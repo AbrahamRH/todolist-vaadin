@@ -2,11 +2,17 @@ package com.todolist.test.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
+@Builder
 @Table(name = "task")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
 
     @Id
@@ -20,7 +26,7 @@ public class Task {
     @Column(name="name", nullable = false, length = 50, unique = true)
     private String name;
 
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name="description", length = 200)
     private String description;
 
