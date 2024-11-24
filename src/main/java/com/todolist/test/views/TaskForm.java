@@ -2,7 +2,7 @@ package com.todolist.test.views;
 
 import com.todolist.test.Entity.Task;
 import com.todolist.test.service.TaskService;
-import com.todolist.test.views.Handler.TaskHandlerForm;
+import com.todolist.test.views.Handler.TaskHandlersImpl;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -18,18 +18,18 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 public class TaskForm extends FormLayout {
 
-    private TextField name = new TextField("Name");
-    private TextField description = new TextField("Description");
-    private Button save = new Button("Save");
-    private Button cancel = new Button("Cancel");
+    private final TextField name = new TextField("Name");
+    private final TextField description = new TextField("Description");
+    private final Button save = new Button("Save");
+    private final Button cancel = new Button("Cancel");
 
     public TaskForm(TaskService taskService) {
         addClassName("task-form");
 
-        TaskHandlerForm taskHandlerForm = new TaskHandlerForm(taskService);
+        TaskHandlersImpl taskHandlersImpl = new TaskHandlersImpl(taskService);
         VerticalLayout layout = new VerticalLayout();
         layout.add(name, description, createButtonsLayout());
-        addSaveButtonConfig(taskHandlerForm);
+        addSaveButtonConfig(taskHandlersImpl);
         addCancelButtonConfig();
         add(layout);
     }
@@ -42,14 +42,14 @@ public class TaskForm extends FormLayout {
         return new HorizontalLayout(save, cancel);
     }
 
-    private void addSaveButtonConfig(TaskHandlerForm taskHandlerForm){
-        save.addClickListener(click -> createTask(taskHandlerForm));
+    private void addSaveButtonConfig(TaskHandlersImpl taskHandlersImpl){
+        save.addClickListener(click -> createTask(taskHandlersImpl));
     }
 
-    private void createTask(TaskHandlerForm taskHandlerForm){
+    private void createTask(TaskHandlersImpl taskHandlersImpl){
         String taskName = this.name.getValue();
         String taskDescription = this.description.getValue();
-        Task task = taskHandlerForm.onTaskCreate(taskName, taskDescription);
+        Task task = taskHandlersImpl.onTaskCreate(taskName, taskDescription);
         name.clear();
         description.clear();
         if(task != null) {
@@ -70,7 +70,7 @@ public class TaskForm extends FormLayout {
     }
 
     public static class TaskFormEvent extends ComponentEvent<TaskForm> {
-        private Task task;
+        private final Task task;
         public TaskFormEvent(TaskForm source, Task task) {
             super(source, false);
             this.task = task;

@@ -52,8 +52,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task updateTask(Task task) {
-        return taskRepository.save(task);
+    public int updateTask(String name, Task task) {
+        Task taskFromDb = taskRepository.findTaskByName(name);
+        return taskRepository.updateNameAndDescriptionAndCompletedById(task.getName(), task.getDescription(), task.isCompleted(), taskFromDb.getId());
     }
 
     @Override
